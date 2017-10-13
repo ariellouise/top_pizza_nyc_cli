@@ -1,15 +1,15 @@
 class TopPizzaNYC::Pizza
 
-  attr_accessor :name, :neighborhood, :location, :website_url
+  attr_accessor :name, :neighborhood, :address, :url
 
   @@all = []
 
   # need another method here?
 
-  def initialize(name=nil, neighborhood=nil, location=nil, url=nil)
+  def initialize(name=nil, neighborhood=nil, address=nil, url=nil)
     @name = name
     @neighborhood = neighborhood
-    @location = location
+    @address = address
     @url = url
     @@all << self
   end
@@ -17,3 +17,5 @@ class TopPizzaNYC::Pizza
   def self.all
     @@all
   end
+
+end
