@@ -9,12 +9,13 @@ class TopPizzaNYC::CLI
   def start
     puts "Which pizza joint would you prefer to see first? 1-5, 5-10, 10-15, 15-20, 20-25?"
     input = gets.strip.to_i
+
+    pizza = TopPizzaNYC.find[input.to_i - 1]
     display_pizza_joint(pizza_joint)
 
     puts "Would you like to see another pizza joint? Enter Y or N"
     input = gets.strip.downcase
 
-    pizza = TopPizzaNYC.find[input.to_i - 1]
 
   if input == "y"
     start
@@ -34,6 +35,8 @@ class TopPizzaNYC::CLI
     puts " "
     puts "#{pizza_joint.want_more?}"
   end
+
+
 
 
 end
