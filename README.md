@@ -1,6 +1,3 @@
-# top_pizza_nyc_cli
-CLI Data Gem Project - Flatiron
-
 # Top Pizza NYC
 
 This gem scrapes the Complex website's "Top 25 Pizza Places in NYC."
