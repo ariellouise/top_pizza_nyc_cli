@@ -27,14 +27,22 @@ class TopPizzaNYC::CLI
 
   def display_restaurant(restaurant)
     puts restaurant
-    puts "**** #{restaurant.name} ****"
-    puts " "
+    puts "---------#{restaurant.name}-----------"
+    puts
     puts "Neighborhood:    #{restaurant.neighborhood}"
     puts "Address:     #{restaurant.address}"
     puts "Website:         #{restaurant.url}"
-    puts " "
-    puts "****Want More?****"
-    puts " "
-    puts "#{restaurant.want_more?}"
+    puts
+
+    puts "---------Want More Info? Enter Y or N. Enter EXIT to quit.-------------"
+    input = gets.strip.downcase
+    if input == "y"
+      puts "Decription: #{restaurant.description}"
+    elsif input == "n"
+      start
+    else
+      puts "See you later!"
+      exit
+    end
   end
 end
