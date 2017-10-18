@@ -1,43 +1,40 @@
 class TopPizzaNYC::CLI
 
   def call
-    TopPizzaNYC::Scraper.new
+    TopPizzaNYC::Scraper.scrape_pizza
     puts "Welcome to the 25 Best Pizza Places in NYC. I hope you brought your appetite!"
     start
   end
 
   def start
-    puts "Which pizza joint would you prefer to see first? 1-5, 5-10, 10-15, 15-20, 20-25?"
+    puts "Which pizza joint would you prefer to see first? Enter a number 1-25."
     input = gets.strip.to_i
 
-    pizza = TopPizzaNYC::Pizza.all[input.to_i - 1]
-    display_pizza_joint(pizza_joint)
+    restaurant = TopPizzaNYC::Pizza.all[input.to_i - 1]
+
+    display_restaurant(restaurant)
 
     puts "Would you like to see another pizza joint? Enter Y or N"
     input = gets.strip.downcase
 
-
-  if input == "y"
-    start
-  else
-    puts "Not hungry enough? See you next time!"
-    exit
+    if input == "y"
+      start
+    else
+      puts "Not hungry enough? See you next time!"
+      exit
+    end
   end
 
-  def display_pizza_joint(pizza_joint)
-    puts "**** #{pizza_joint.name} ****"
+  def display_restaurant(restaurant)
+    puts restaurant
+    puts "**** #{restaurant.name} ****"
     puts " "
-    puts "Neighborhood:    #{pizza_joint.neighborhood}"
-    puts "Location:        #{[pizza_joint.location]}"
-    puts "Website:         #{pizza_joint.website_url}"
-
+    puts "Neighborhood:    #{restaurant.neighborhood}"
+    puts "Address:     #{restaurant.address}"
+    puts "Website:         #{restaurant.url}"
+    puts " "
     puts "****Want More?****"
     puts " "
-    puts "#{pizza_joint.want_more?}"
+    puts "#{restaurant.want_more?}"
   end
-
-
-
-
-end
 end
