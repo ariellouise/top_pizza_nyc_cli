@@ -11,8 +11,8 @@ class TopPizzaNYC::CLI
   end
 
   def start
-    puts
     puts "Which pizza joint would you prefer to see first? Enter a number 1-25."
+    TopPizzaNYC::Pizza.all.each.with_index(1) { |restaurant, index| puts "#{index}. #{restaurant.name}"}
     input = gets.strip.to_i
 
     restaurant = TopPizzaNYC::Pizza.all[input.to_i - 1]
