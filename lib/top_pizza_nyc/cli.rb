@@ -12,7 +12,9 @@ class TopPizzaNYC::CLI
 
   def start
     puts "Which pizza joint would you prefer to see first? Enter a number 1-25."
+    puts #more space
     TopPizzaNYC::Pizza.all.each.with_index(1) { |restaurant, index| puts "#{index}. #{restaurant.name}"}
+    puts #more space
     input = gets.strip.to_i
 
     restaurant = TopPizzaNYC::Pizza.all[input.to_i - 1]
@@ -20,6 +22,7 @@ class TopPizzaNYC::CLI
     display_restaurant(restaurant)
 
     puts "Would you like to see another pizza joint? Enter yes or no"
+    puts
     input = gets.strip.downcase
 
     if input == "yes"
@@ -35,10 +38,10 @@ class TopPizzaNYC::CLI
     puts
     puts "Neighborhood:    #{restaurant.neighborhood}"
     puts "Address:          #{restaurant.address}"
-    puts "Website:          #{!restaurant.url.empty? ? restaurant.url : 'None Listed.'}"
+    puts "Website:          #{restaurant.url}"
     puts
 
-    puts "---------Want More Info? Enter yes or no. Enter EXIT to quit-------------"
+    puts "-----------Want More Info? Enter yes or no. Enter EXIT to quit-------------"
     input = gets.strip.downcase
 
     if input == "yes"
