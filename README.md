@@ -1,6 +1,6 @@
 # Top Pizza NYC
 
-This gem scrapes the Complex website's "Top 25 Pizza Places in NYC."
+This program scrapes the Complex website's "Top 25 Pizza Places in NYC." Allows users to enter a number 1-25 from an ordered list to view each restaurant name, description, address and neighborhood individually. User will be able to loop through the program indefinitely until given the command to exit. 
 
 ## Installation
 
