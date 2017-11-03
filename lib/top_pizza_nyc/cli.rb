@@ -1,25 +1,37 @@
 class TopPizzaNYC::CLI
+
   def call
     TopPizzaNYC::Scraper.scrape_pizza
-    TopPizzaNYC::Pizza.all.shift #gets rid of the first unnecessary item in the @@all array
-    @names = TopPizzaNYC::Scraper.scrape_name
-    TopPizzaNYC::Pizza.all.map { |pizza_place| pizza_place.name = @names.shift }
-    puts #for space
+    TopPizzaNYC::Scraper.scrape_name
+    puts
     puts "Welcome to the Top 25 Pizza Places in NYC. I hope you brought your appetite!"
-    puts #for space
+    puts
+    list_pizza_joints
     start
   end
 
+  def list_pizza_joints
+    TopPizzaNYC::Pizza.all.each_with_index { |restaurant, index| puts "#{index + 1}. #{restaurant.name}"}
+  end
+
   def start
-    puts "Which pizza joint would you prefer to see first? Enter a number 1-25."
-    puts #more space
-    TopPizzaNYC::Pizza.all.each.with_index(1) { |restaurant, index| puts "#{index}. #{restaurant.name}"}
-    puts #more space
-    input = gets.strip.to_i
+    puts
+    puts "Which pizza joint would you prefer to see first? Enter a number 1-25. To see the list again, type 'list'. To search descriptions, type 'search'."
+    puts
+    input = gets.strip
+    if input.to_i.between?(1, 25)
+      restaurant = TopPizzaNYC::Pizza.all[input.to_i - 1]
+      display_restaurant(restaurant)
+    elsif input == "list"
+      list_pizza_joints
+    elsif input == "search"
+      search_descriptions
 
-    restaurant = TopPizzaNYC::Pizza.all[input.to_i - 1]
-
-    display_restaurant(restaurant)
+    else
+      puts
+      puts "That is not a valid input."
+      start
+    end
 
     puts "Would you like to see another pizza joint? Enter yes or no"
     puts
@@ -33,6 +45,16 @@ class TopPizzaNYC::CLI
     end
   end
 
+   def search_descriptions
+     puts "Please enter a keyword you would like to search"
+     input = gets.strip
+     pizzas = TopPizzaNYC::Pizza.search_descriptions(input)
+     puts "Here are the restaurants that have the keyword #{input} in its description."
+     pizzas.each do |pizza|
+       puts "#{pizza.name}"
+     end
+   end
+
   def display_restaurant(restaurant)
     puts "---------#{restaurant.name}-----------"
     puts
@@ -45,16 +67,22 @@ class TopPizzaNYC::CLI
     input = gets.strip.downcase
 
     if input == "yes"
-      puts #for space
+      puts
       puts "Description: #{restaurant.description}"
-      puts #for space
+      puts
     elsif input == "no"
       start
-    else
-      puts #for space
+    elsif input == "exit"
+      puts
       puts "Not hungry enough? See you next time!"
-      puts #for space
+      puts
       exit
+    else
+      puts
+      puts "Invalid input. Please enter yes, no or EXIT to quit."
+      puts
+      display_restaurant(restaurant)
+      puts
     end
   end
 end
